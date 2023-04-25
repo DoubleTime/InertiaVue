@@ -1,0 +1,87 @@
+/* Guest CSS */
+html,
+body.guest {
+    height: 100%;
+}
+
+body.guest {
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+}
+
+.form-signin {
+    max-width: 400px;
+    padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+/* Auth CSS */
+html,
+body.auth {
+    overflow-x: hidden;
+    background-color: #f3f4f6;
+    /* Prevent scroll on narrow devices */
+}
+
+body.auth {
+    padding-top: 76px;
+}
+
+.model,
+.modal-open,
+.navbar {
+    padding-right: 0px !important;
+    /* Fix Modal Add PR-17 in few places */
+}
+
+@media (max-width: 991.98px) {
+    .offcanvas-collapse {
+        position: fixed;
+        top: 76px;
+        /* Height of navbar */
+        bottom: 0;
+        left: 100%;
+        width: 100%;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        overflow-y: auto;
+        visibility: hidden;
+        background-color: #343a40;
+        transition: transform .3s ease-in-out, visibility .3s ease-in-out;
+    }
+
+    .offcanvas-collapse.open {
+        visibility: visible;
+        transform: translateX(-100%);
+    }
+}
+
+.nav-scroller .nav {
+    color: rgba(255, 255, 255, .75);
+}
+
+.nav-scroller .nav-link {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: .875rem;
+    color: #6c757d;
+}
+
+.nav-scroller .nav-link:hover {
+    color: #007bff;
+}
+
+.nav-scroller .active {
+    font-weight: 500;
+    color: #343a40;
+}
+
+.dropend .dropdown-menu[data-bs-popper] {
+    left: 98%;
+}
