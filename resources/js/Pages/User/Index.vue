@@ -3,7 +3,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import HeadRow from '@/Components/Table/HeadRow.vue';
 import Paginate from '@/Components/Table/Paginate.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, router, useForm } from '@inertiajs/vue3';
+import { Head, router, useForm, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { formatDate } from '@/helper';
 
@@ -35,21 +35,16 @@ const submit = () => {
     });
 };
 
-// watch(() => props.filters.search, (value) => {
-//     router.get(
-//         route('users.index'),
-//         { search: value },
-//         {
-//             preserveState: true,
-//         }
-//     );
-// });
-
-
+const destroy = (id, name) => {
+    const c = confirm(`Delete this user ${name} ?`);
+    if (c) {
+        router.delete(route('users.destroy', id));
+    }
+};
 </script>
 
 <template>
-    <Head title="headerTitle" />
+    <Head :title="headerTitle" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -74,6 +69,14 @@ const submit = () => {
                     </div>
                 </div>
             </form>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+                <Link class="btn btn-outline-primary btn-sm" :href="route('users.create')">
+                <i class="bi bi-plus"></i>
+                Create
+                </Link>
+            </div>
+
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
@@ -83,7 +86,14 @@ const submit = () => {
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in list.data">
-                        <td>{{ index + 1 }}</td>
+                        <td width="10%">
+                            <Link :href="route('users.edit', item.id)" class="btn btn-sm btn-link">
+                            <i class="bi bi-pencil"></i>
+                            </Link>
+                            <Button v-if="item.id != $page.props.auth.user.id" @click="destroy(item.id, item.name)" class="btn btn-sm btn-link">
+                                <i class="bi bi-trash"></i>
+                            </Button>
+                        </td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
                         <td>{{ formatDate(item.created_at) }}</td>

@@ -43,6 +43,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    //Default attributes
+    protected $attributes = [
+        'active' => true,
+    ];
+
+    public function getActiveAttribute($value)
+    {
+        return $value ? true : false;
+    }
 
     //Static Functions Below Here
 

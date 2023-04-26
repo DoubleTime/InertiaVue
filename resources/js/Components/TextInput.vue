@@ -7,8 +7,8 @@ defineProps({
         required: true,
     },
     invalid: {
-        type: Boolean,
-        default: false
+        type: String,
+        default: null
     }
 });
 

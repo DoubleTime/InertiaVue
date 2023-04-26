@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -23,7 +26,7 @@ class UserController extends Controller
             $q->orWhere('email', 'like', '%' . $filters['keyword'] . '%');
         })->filterSort($filters)->paginate(2);
 
-        return Inertia::render('Users/Index', [
+        return Inertia::render('User/Index', [
             'header' => User::header(),
             'filters' => $filters,
             'list' => $list,
@@ -35,15 +38,15 @@ class UserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Users/Index', []);
+        return $this->edit(null);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserUpdateRequest $request)
     {
-        //
+        return $this->update($request, null);
     }
 
     /**
@@ -57,24 +60,45 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id = null)
     {
-        //
+        if (null == $id) {
+            $data = new User;
+        } else {
+            $data = User::find($id);
+        }
+        return Inertia::render('User/Edit', [
+            'data' => $data
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserUpdateRequest $request, string $id = null)
     {
-        //
+        $data = $request->validated();
+        if (isset($data['password']) && !empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        if (null == $id) {
+            $data = User::create($data);
+            return Redirect::route('users.edit', $data->id)->with('message', 'User created successfully');
+        } else {
+            User::find($id)->update($data);
+            return Redirect::route('users.edit', $id)->with('message', 'User updated successfully');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return Redirect::route('users.index')->with('message', 'User deleted successfully');
     }
 }

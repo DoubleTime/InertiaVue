@@ -5,6 +5,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import { Link, usePage } from '@inertiajs/vue3';
+import FlashAlert from '@/Components/FlashAlert.vue';
 
 //Load Menu from config('menus.items')
 const menus = computed(() => usePage().props.menus);
@@ -146,20 +147,24 @@ onMounted(() => {
     </nav>
 
     <!-- Extra Menu Access 
-            <div class="nav-scroller bg-body shadow-sm">
-                <nav class="nav" aria-label="Secondary navigation">
-                    <a class="nav-link" href="#">
-                        Friends
-                        <span class="badge text-bg-light rounded-pill align-text-bottom">27</span>
-                    </a>
-                </nav>
-            </div>
-        -->
+        <div class="nav-scroller bg-body shadow-sm">
+            <nav class="nav" aria-label="Secondary navigation">
+                <a class="nav-link" href="#">
+                    Friends
+                    <span class="badge text-bg-light rounded-pill align-text-bottom">27</span>
+                </a>
+            </nav>
+        </div>
+    -->
 
     <main class="container">
         <h2 class="my-2 lh-sm" v-if="$slots.header">
             <slot name="header" />
         </h2>
+
+        <FlashAlert v-if="$page.props.flash.message">
+            {{ $page.props.flash.message }}
+        </FlashAlert>
         <slot />
     </main>
 </template>

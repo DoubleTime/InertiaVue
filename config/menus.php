@@ -14,25 +14,21 @@ return [
             'route' => 'dashboard'
         ],
         [
-            'title' => 'Profile',
+            'title' => 'Masterfile',
             'route' => '',
             'submenus' => [
                 [
-                    'title' => 'Profile Edit',
-                    'route' => 'profile.edit'
+                    'title' => 'Users',
+                    'route' => 'users.index'
                 ],
                 [
-                    'title' => 'Users',
+                    'title' => 'Profile',
                     'route' => '',
                     'submenus' => [
                         [
-                            'title' => 'Index',
-                            'route' => 'users.index'
-                        ],
-                        [
-                            'title' => 'Create',
-                            'route' => 'users.create'
-                        ],
+                            'title' => 'Edit Profile',
+                            'route' => 'profile.edit'
+                        ]
                     ]
                 ],
             ]

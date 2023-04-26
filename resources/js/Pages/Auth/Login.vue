@@ -49,7 +49,7 @@ const submit = () => {
             <InputError class="my-1" :message="form.errors.password" />
             <div class="checkbox my-3">
                 <label>
-                    <Checkbox name="remember" v-model:checked="form.remember" /> Remember me
+                    <Checkbox id="remember" v-model:checked="form.remember"> Remember me</Checkbox>
                 </label>
             </div>
 

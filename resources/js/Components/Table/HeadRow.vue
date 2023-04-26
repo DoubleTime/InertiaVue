@@ -20,7 +20,7 @@ const classes = computed(() => props.sort != null ? 'sortable' : '')
 const emit = defineEmits(['sortEvent']);
 function sortEvent(field) {
     //Pass field value back to parent
-    if (!props.disabled) emit('sortEvent', field);
+    if (!props.disabled && props.sort != null) emit('sortEvent', field);
 }
 </script>
 
