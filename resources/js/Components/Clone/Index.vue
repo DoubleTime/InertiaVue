@@ -20,8 +20,8 @@ const props = defineProps({
     },
 });
 
-const routeGroupName = 'users';
-const headerTitle = ref('Users');
+const routeGroupName = 'CHANGE ROUTE NAME';
+const headerTitle = ref('CHANGE YOUR TITLE');
 const form = useForm(props.filters);
 
 const sort = (field) => {
@@ -95,8 +95,6 @@ const destroy = (id, name) => {
                                 <i class="bi bi-trash"></i>
                             </Button>
                         </td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.email }}</td>
                         <td>{{ formatDate(item.created_at) }}</td>
                     </tr>
                 </tbody>

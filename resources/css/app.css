@@ -85,3 +85,7 @@ body.auth {
 .dropend .dropdown-menu[data-bs-popper] {
     left: 98%;
 }
+
+.table-hover th:hover {
+    background-color: #f9fafb;
+}
