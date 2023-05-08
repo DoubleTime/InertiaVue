@@ -42,8 +42,8 @@ const submit = () => {
             </div>
             <InputError class="my-1" :message="form.errors.email" />
 
-            <div class="form-floating my-2" :class="{ 'is-invalid': form.errors.email }">
-                <input type="password" class="form-control" :class="{ 'is-invalid': form.errors.email }" id="floatingPassword" placeholder="Password" required v-model="form.password">
+            <div class="form-floating my-2" :class="{ 'is-invalid': form.errors.password }">
+                <input type="password" class="form-control" :class="{ 'is-invalid': form.errors.password }" id="floatingPassword" placeholder="Password" required v-model="form.password">
                 <label for="floatingPassword">Password</label>
             </div>
             <InputError class="my-1" :message="form.errors.password" />
