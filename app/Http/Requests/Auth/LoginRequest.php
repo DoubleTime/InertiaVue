@@ -26,10 +26,14 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
-        ];
+        $rules = [];
+        if (env(LOGIN_USERNAME, false)) {
+            $rules['username'] = ['required', 'string'];
+        } else {
+            $rules['email'] =  ['required', 'string', 'email'];
+        }
+        $rules['password'] = ['required', 'string'];
+        return $rules;
     }
 
     /**
@@ -41,7 +45,7 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        $data = $this->only('email', 'password');
+        $data = $this->only(env(LOGIN_USERNAME, false) ? 'username' : 'email', 'password');
         $data['active'] = true; //Active True
 
         if (!Auth::attempt($data, $this->boolean('remember'))) {

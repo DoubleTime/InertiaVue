@@ -13,10 +13,14 @@ defineProps({
     status: {
         type: String,
     },
+    useUsername: {
+        type: Boolean,
+    }
 });
 
 const form = useForm({
     email: '',
+    username: '',
     password: '',
     remember: false,
 });
@@ -36,14 +40,26 @@ const submit = () => {
         <Alert :message="status" :status="'success'" />
 
         <form @submit.prevent="submit">
-            <div class="form-floating" :class="{ 'is-invalid': form.errors.email }">
-                <input type="email" class="form-control" :class="{ 'is-invalid': form.errors.email }" id="floatingEmail" placeholder="name@example.com" required autofocus v-model="form.email">
-                <label for="floatingEmail">Email address</label>
-            </div>
-            <InputError class="my-1" :message="form.errors.email" />
+            <template v-if="useUsername">
+                <div class="form-floating" :class="{ 'is-invalid': form.errors.username }">
+                    <input type="text" class="form-control" :class="{ 'is-invalid': form.errors.username }"
+                        id="floatingUsername" placeholder="john" required autofocus v-model="form.username">
+                    <label for="floatingEmail">Username</label>
+                </div>
+                <InputError class="my-1" :message="form.errors.username" />
+            </template>
+            <template v-else>
+                <div class="form-floating" :class="{ 'is-invalid': form.errors.email }">
+                    <input type="email" class="form-control" :class="{ 'is-invalid': form.errors.email }" id="floatingEmail"
+                        placeholder="name@example.com" required autofocus v-model="form.email">
+                    <label for="floatingEmail">Email address</label>
+                </div>
+                <InputError class="my-1" :message="form.errors.email" />
+            </template>
 
             <div class="form-floating my-2" :class="{ 'is-invalid': form.errors.password }">
-                <input type="password" class="form-control" :class="{ 'is-invalid': form.errors.password }" id="floatingPassword" placeholder="Password" required v-model="form.password">
+                <input type="password" class="form-control" :class="{ 'is-invalid': form.errors.password }"
+                    id="floatingPassword" placeholder="Password" required v-model="form.password">
                 <label for="floatingPassword">Password</label>
             </div>
             <InputError class="my-1" :message="form.errors.password" />

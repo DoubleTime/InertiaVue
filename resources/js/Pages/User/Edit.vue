@@ -10,6 +10,9 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
+    useUsername: {
+        type: Boolean
+    }
 });
 const routeGroupName = 'users';
 const headerTitle = ref('User');

@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+//use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\AuthModal as Authenticatable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable //implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -19,6 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
+        'username',
         'name',
         'email',
         'password',
@@ -48,9 +50,21 @@ class User extends Authenticatable implements MustVerifyEmail
         'active' => true,
     ];
 
-    public function getActiveAttribute($value)
+    public function active(): Attribute
     {
-        return $value ? true : false;
+        return Attribute::make(
+            get: fn (string $value) => $value ? true : false
+        );
+    }
+
+    protected function username(): Attribute
+    {
+        if (env(LOGIN_USERNAME, false)) {
+            return Attribute::make(
+                set: fn (string $value) => $value != null ? strtolower($value) : null,
+            );
+        }
+        return Attribute::make();
     }
 
     //Static Functions Below Here
@@ -60,10 +74,14 @@ class User extends Authenticatable implements MustVerifyEmail
     */
     public static function header()
     {
-        return [
+        $headers = [];
+        if (env(LOGIN_USERNAME, false)) {
+            $headers[] = ['field' => 'username', 'title' => 'Username', 'sortable' => true];
+        }
+        return array_merge($headers, [
             ['field' => 'name', 'title' => 'Name', 'sortable' => true],
             ['field' => 'email', 'title' => 'Email', 'sortable' => true],
             ['field' => 'created_at', 'title' => 'Created At'],
-        ];
+        ]);
     }
 }

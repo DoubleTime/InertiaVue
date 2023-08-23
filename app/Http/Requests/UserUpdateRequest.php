@@ -17,10 +17,14 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         //$this->user = id
-        return [
+        $rules = [];
+        if (env(LOGIN_USERNAME, false)) {
+            $rules['username'] = ['alpha_dash', 'max:255', Rule::unique(User::class)->ignore($this->user)];
+        }
+        return  array_merge($rules, [
             'name' => ['string', 'max:255'],
             'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user)],
             'password' => ['nullable', Password::defaults()]
-        ];
+        ]);
     }
 }

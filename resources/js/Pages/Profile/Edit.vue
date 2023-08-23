@@ -12,6 +12,9 @@ defineProps({
     status: {
         type: String,
     },
+    useUsername: {
+        type: Boolean
+    }
 });
 </script>
 
@@ -24,7 +27,8 @@ defineProps({
         </template>
 
         <div class="my-3 p-3 bg-body rounded shadow-sm">
-            <UpdateProfileInformationForm :must-verify-email="mustVerifyEmail" :status="status" />
+            <UpdateProfileInformationForm :must-verify-email="mustVerifyEmail" :status="status"
+                :useUsername="useUsername" />
         </div>
 
         <div class="my-3 p-3 bg-body rounded shadow-sm">

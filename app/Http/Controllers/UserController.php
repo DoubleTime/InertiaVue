@@ -30,6 +30,7 @@ class UserController extends Controller
             'header' => User::header(),
             'filters' => $filters,
             'list' => $list,
+            'useUsername' => env(LOGIN_USERNAME, false)
         ]);
     }
 
@@ -68,7 +69,8 @@ class UserController extends Controller
             $data = User::find($id);
         }
         return Inertia::render('User/Edit', [
-            'data' => $data
+            'data' => $data,
+            'useUsername' => env(LOGIN_USERNAME, false)
         ]);
     }
 

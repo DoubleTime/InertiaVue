@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->loadHelpers();
     }
 
     /**
@@ -20,5 +20,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+    }
+
+    protected function loadHelpers()
+    {
+        foreach (glob(__DIR__ . '/../Helpers/*.php') as $filename) {
+            require_once $filename;
+        }
     }
 }

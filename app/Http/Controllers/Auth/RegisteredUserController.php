@@ -21,7 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/Register', [
+            'useUsername' => env(LOGIN_USERNAME, false)
+        ]);
     }
 
     /**
@@ -31,13 +33,19 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:'.User::class,
+            'email' => 'required|string|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        ];
+        if (env(LOGIN_USERNAME, false)) {
+            $rules['username'] = 'required|alpha_dash|max:255|unique:' . User::class;
+        }
+
+        $request->validate($rules);
 
         $user = User::create([
+            'username' => $request->username ?? null,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),

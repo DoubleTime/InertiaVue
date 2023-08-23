@@ -12,6 +12,9 @@ defineProps({
     status: {
         type: String,
     },
+    useUsername: {
+        type: Boolean
+    }
 });
 
 const user = usePage().props.auth.user;
@@ -32,6 +35,11 @@ const form = useForm({
         </header>
 
         <form @submit.prevent="form.patch(route('profile.update'))">
+            <div v-if="useUsername" class="mb-3">
+                <InputLabel for="username" value="Username" />
+                <TextInput id="username" type="text" v-model="user.username" :invalid="form.errors.name" disabled />
+            </div>
+
             <div class="mb-3">
                 <InputLabel for="name" value="Name" />
                 <TextInput id="name" type="text" v-model="form.name" :invalid="form.errors.name" />
@@ -40,7 +48,8 @@ const form = useForm({
 
             <div class="mb-3">
                 <InputLabel for="email" value="Email" />
-                <TextInput id="email" type="email" v-model="form.email" :invalid="form.errors.email" required placeholder="john@email.com" />
+                <TextInput id="email" type="email" v-model="form.email" :invalid="form.errors.email" required
+                    placeholder="john@email.com" />
                 <InputError :message="form.errors.email" />
             </div>
 
@@ -60,8 +69,9 @@ const form = useForm({
             <div>
                 <PrimaryButton type="submit" :disabled="form.processing">Save</PrimaryButton>
 
-                <Transition enter-active-class="fade transition ease-in-out duration-500" enter-from-class="opacity-0" enter-to-class="opacity-100"
-                    leave-active-class="fade transition ease-in-out duration-500" leave-to-class="opacity-0">
+                <Transition enter-active-class="fade transition ease-in-out duration-500" enter-from-class="opacity-0"
+                    enter-to-class="opacity-100" leave-active-class="fade transition ease-in-out duration-500"
+                    leave-to-class="opacity-0">
                     <span v-if="form.recentlySuccessful" class="ms-2 text-success">Saved.</span>
                 </Transition>
             </div>
