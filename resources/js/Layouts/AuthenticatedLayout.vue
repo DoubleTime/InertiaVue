@@ -88,46 +88,60 @@ onMounted(() => {
             <a class="navbar-brand" href="#">
                 <ApplicationLogo class="app-logo" width="50" height="50" /> Brand
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" id="navbarSideCollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" id="navbarSideCollapse"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <template v-for="menu in menus">
                         <li v-if="menu.submenus?.length > 0" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" :class="{ active: isParentMenuActive(menu.title) }" href="#" data-bs-toggle="dropdown" aria-expanded="false">{{ menu.title }}</a>
+                            <a class="nav-link dropdown-toggle" :class="{ active: isParentMenuActive(menu.title) }" href="#"
+                                data-bs-toggle="dropdown" aria-expanded="false">{{ menu.title }}</a>
                             <ul class="dropdown-menu">
                                 <template v-for="submenu in menu.submenus" :key="submenu.title">
                                     <li v-if="submenu.submenus?.length > 0" class="dropdown dropend">
-                                        <a class="dropdown-item dropdown-toggle" :class="{ active: isParentMenuActive(submenu.title) }" href="#" id="dropdown-layouts" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
+                                        <a class="dropdown-item dropdown-toggle"
+                                            :class="{ active: isParentMenuActive(submenu.title) }" href="#"
+                                            id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
                                             {{ submenu.title }}
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdown-layouts">
-                                            <NavLink v-for="submenu2 in submenu.submenus" :href="route(submenu2.route)" :active="route().current(submenu2.route)" :isSubmenu="true">{{ submenu2.title }}
-                                            </NavLink>
+                                            <template v-for="submenu2 in submenu.submenus">
+                                                <NavLink :href="route(submenu2.route)"
+                                                    :active="route().current(submenu2.route)" :isSubmenu="true">{{
+                                                        submenu2.title }}
+                                                </NavLink>
+                                            </template>
                                         </div>
                                     </li>
-                                    <li v-else class="nav-item">
-                                        <NavLink :href="route(submenu.route)" :active="route().current(submenu.route)" :isSubmenu="true">{{ submenu.title }}</NavLink>
+                                    <li v-else-if="submenu.route" class="nav-item">
+                                        <NavLink :href="route(submenu.route)" :active="route().current(submenu.route)"
+                                            :isSubmenu="true">{{ submenu.title }}
+                                        </NavLink>
                                     </li>
                                 </template>
                             </ul>
                         </li>
-                        <li v-else class="nav-item">
-                            <NavLink :href="route(menu.route)" :active="route().current(menu.route)">{{ menu.title }}</NavLink>
+                        <li v-else-if="menu.route" class="nav-item">
+                            <NavLink :href="route(menu.route)" :active="route().current(menu.route)">{{ menu.title }}
+                            </NavLink>
                         </li>
                     </template>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" :class="{ active: route().current('profile.edit') }" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img :src="'https://api.dicebear.com/6.x/bottts-neutral/svg?seed=' + $page.props.auth.user.name" alt="User Avatar" width="40" height="40" class="rounded-circle me-2"> {{
-                                $page.props.auth.user.name }}
+                        <a class="nav-link dropdown-toggle" :class="{ active: route().current('profile.edit') }" href="#"
+                            id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img :src="'https://api.dicebear.com/6.x/bottts-neutral/svg?seed=' + $page.props.auth.user.name"
+                                alt="User Avatar" width="40" height="40" class="rounded-circle me-2"> {{
+                                    $page.props.auth.user.name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li>
-                                <Link :href="route('profile.edit')" class="dropdown-item" :class="{ active: route().current('profile.edit') }">
+                                <Link :href="route('profile.edit')" class="dropdown-item"
+                                    :class="{ active: route().current('profile.edit') }">
                                 Profile
                                 </Link>
                             </li>

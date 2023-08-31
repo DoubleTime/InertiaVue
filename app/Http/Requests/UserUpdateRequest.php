@@ -24,7 +24,8 @@ class UserUpdateRequest extends FormRequest
         return  array_merge($rules, [
             'name' => ['string', 'max:255'],
             'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user)],
-            'password' => ['nullable', Password::defaults()]
+            'password' => ['nullable', Password::defaults()],
+            'active' => ['boolean'],
         ]);
     }
 }

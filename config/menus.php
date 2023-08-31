@@ -15,7 +15,6 @@ return [
         ],
         [
             'title' => 'Masterfile',
-            'route' => '',
             'submenus' => [
                 [
                     'title' => 'Users',
@@ -23,7 +22,6 @@ return [
                 ],
                 [
                     'title' => 'Profile',
-                    'route' => '',
                     'submenus' => [
                         [
                             'title' => 'Edit Profile',

@@ -58,9 +58,6 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id = null)
     {
         if (null == $id) {
@@ -68,9 +65,12 @@ class UserController extends Controller
         } else {
             $data = User::find($id);
         }
+        $menu_list = config('menus.items');
+
         return Inertia::render('User/Edit', [
             'data' => $data,
-            'useUsername' => env(LOGIN_USERNAME, false)
+            'useUsername' => env(LOGIN_USERNAME, false),
+            'menu_list' => $menu_list,
         ]);
     }
 
@@ -102,5 +102,16 @@ class UserController extends Controller
     {
         $user->delete();
         return Redirect::route('users.index')->with('message', 'User deleted successfully');
+    }
+
+    /**
+     * Save Menu
+     */
+    public function patchMenu(Request $request, $id)
+    {
+        $data = User::find($id);
+        $data->menu_permission = $request->menus;
+        $data->save();
+        return Redirect::route('users.edit', $data->id)->with('message', 'Menu Permission Updated');
     }
 }

@@ -31,13 +31,14 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::prefix('users')->name('users.')->group(function () {
         //Do Something later
+        Route::patch('menu/{id}', [UserController::class, 'patchMenu'])->name('menu.update');
     });
     Route::resource('users', UserController::class);
 });

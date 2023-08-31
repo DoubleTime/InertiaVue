@@ -4,6 +4,7 @@ import DetailForm from './Partials/DetailForm.vue';
 
 import { Head, router, useForm, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import MenuForm from './Partials/MenuForm.vue';
 
 const props = defineProps({
     data: {
@@ -12,11 +13,13 @@ const props = defineProps({
     },
     useUsername: {
         type: Boolean
-    }
+    },
+    menu_list: {
+        type: Array,
+    },
 });
 const routeGroupName = 'users';
 const headerTitle = ref('User');
-
 </script>
 
 <template>
@@ -34,7 +37,7 @@ const headerTitle = ref('User');
                         <a class="nav-link active" data-bs-toggle="tab" href="#tab_1">Details</a>
                     </li>
                     <li v-if="data.id" class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#tab_2">Permissions</a>
+                        <a class="nav-link" data-bs-toggle="tab" href="#tab_2">Menus</a>
                     </li>
                 </ul>
             </div>
@@ -44,7 +47,7 @@ const headerTitle = ref('User');
                         <DetailForm v-bind:="$props" />
                     </div>
                     <div v-if="data.id" class="tab-pane fade pt-10" id="tab_2" role="tabpanel" aria-labelledby="tab_2">
-                        Coming Soon
+                        <MenuForm v-bind:="$props" />
                     </div>
                 </div>
             </div>
