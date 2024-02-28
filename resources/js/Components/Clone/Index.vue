@@ -58,7 +58,8 @@ const destroy = (id, name) => {
                 <div class="row mb-3">
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
-                            <input v-model="form.keyword" type="text" class="form-control" id="keywordInput" placeholder="Keyword" autocomplete="off">
+                            <input v-model="form.keyword" type="text" class="form-control" id="keywordInput"
+                                placeholder="Keyword" autocomplete="off">
                             <label for="keywordInput">Keyword</label>
                         </div>
                     </div>
@@ -82,7 +83,8 @@ const destroy = (id, name) => {
                 <thead>
                     <tr>
                         <HeadRow>Actions</HeadRow>
-                        <HeadRow v-for="head in header" :field="head.field" :sort="head.sortable ? filters.sort : null" @sortEvent="sort" :disabled="form.processing">{{ head.title }}</HeadRow>
+                        <HeadRow v-for="head in header" :field="head.field" :sort="head.sortable ? filters.sort : null"
+                            @sortEvent="sort" :disabled="form.processing">{{ head.title }}</HeadRow>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,9 +93,10 @@ const destroy = (id, name) => {
                             <Link :href="route(routeGroupName + '.edit', item.id)" class="btn btn-sm btn-link">
                             <i class="bi bi-pencil"></i>
                             </Link>
-                            <Button v-if="item.id != $page.props.auth.user.id" @click="destroy(item.id, item.name)" class="btn btn-sm btn-link">
+                            <button v-if="item.id != $page.props.auth.user.id" @click="destroy(item.id, item.name)"
+                                class="btn btn-sm btn-link">
                                 <i class="bi bi-trash"></i>
-                            </Button>
+                            </button>
                         </td>
                         <td>{{ formatDate(item.created_at) }}</td>
                     </tr>
@@ -103,5 +106,4 @@ const destroy = (id, name) => {
         </div>
 
 
-    </AuthenticatedLayout>
-</template>
+</AuthenticatedLayout></template>

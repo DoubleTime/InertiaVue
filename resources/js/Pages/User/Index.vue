@@ -96,10 +96,10 @@ const destroy = (id, name) => {
                             <Link :href="route(routeGroupName + '.edit', item.id)" class="btn btn-sm btn-link">
                             <i class="bi bi-pencil"></i>
                             </Link>
-                            <Button v-if="item.id != $page.props.auth.user.id" @click="destroy(item.id, item.name)"
+                            <button v-if="item.id != $page.props.auth.user.id" @click="destroy(item.id, item.name)"
                                 class="btn btn-sm btn-link">
                                 <i class="bi bi-trash"></i>
-                            </Button>
+                            </button>
                         </td>
                         <td v-if="useUsername">{{ item.username }}</td>
                         <td>{{ item.name }}</td>
