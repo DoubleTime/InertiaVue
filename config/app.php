@@ -185,6 +185,7 @@ return [
         /*
          * Package Service Providers...
          */
+        MongoDB\Laravel\MongoDBServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -210,6 +211,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Moloquent' => MongoDB\Laravel\Eloquent\Model::class
     ])->toArray(),
 
 ];

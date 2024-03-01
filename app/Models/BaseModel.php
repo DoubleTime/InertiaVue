@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Model;
+//MYSQL use this
+//use App\Models\Model;
+//MongoDB use this
+use Moloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
-class BaseModel extends Model
+class BaseModel extends Moloquent
 {
     public function scopeFilterSort($query, $filters)
     {

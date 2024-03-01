@@ -10,7 +10,6 @@ For building filter
 ```
 $filters = $this->filterSessions($request, 'THE PREFIX', [
     'keyword' => ''
-]);
 ```
 
 ## Eloquent
@@ -20,3 +19,10 @@ Scope `->filterSort($filters)` for index sorting
 ## Vue
 ### Template
 You can find Index and Edit template at `resources/js/Components/Clone`
+
+## Database
+Switch between Mysql or MongoDB
+At `App\Models\BaseModel.php` switch between use `App\Models\Model` and `use Moloquent`
+
+## Develop Laravel Command 
+php artisan make:controller ProductController --model=Product --resource
