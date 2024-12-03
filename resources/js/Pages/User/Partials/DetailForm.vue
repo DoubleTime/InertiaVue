@@ -5,7 +5,7 @@ import TextInput from '@/Components/TextInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Checkbox from '@/Components/Checkbox.vue';
 import { useForm, Link } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import Multiselect from 'vue-multiselect'
 
 const props = defineProps({
     data: {
@@ -25,6 +25,7 @@ const form = useForm({
     email: props.data.email ?? '',
     active: props.data.active,
     password: '',
+    gender: [],
 });
 </script>
 
@@ -56,6 +57,12 @@ const form = useForm({
                 <TextInput id="name" type="text" v-model="form.name" :invalid="form.errors.name" required />
                 <InputError :message="form.errors.name" />
             </div>
+
+            <div class="col-md-6">
+                <InputLabel for="gender" value="Gender" />
+                <Multiselect id="gender" v-model="form.gender" :options="['Male', 'Female', 'Prefer Not To Say']" :multiple="true" :close-on-select="false"></Multiselect>
+            </div>
+
             <div class="col-12">
                 <Checkbox id="checkActive" v-model:checked="form.active">
                     Active

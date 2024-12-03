@@ -89,3 +89,38 @@ body.auth {
 .table-hover th:hover {
     background-color: #f9fafb;
 }
+
+/* Multiselect override CSS */
+.multiselect__tag {
+    background: #20c997;
+}
+
+.multiselect__option--highlight {
+    background: #20c997;
+}
+
+.multiselect__option--highlight:after {
+    background: #20c997;
+}
+
+.multiselect__option--selected.multiselect__option--highlight {
+    background: #20c997;
+}
+
+.multiselect__option--selected.multiselect__option--highlight:after {
+    background: #dc3545;
+}
+
+.multiselect__tag-icon:hover {
+    background: #20c997;
+}
+
+.multiselect__input,
+.multiselect__single {
+    padding: 0 0 0 0;
+}
+
+.multiselect__placeholder {
+    margin-left: 4px;
+    color: #999999;
+}

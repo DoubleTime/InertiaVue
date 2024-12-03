@@ -1,5 +1,6 @@
 import './bootstrap'; //Initial Require Plugin
 import '../sass/app.scss'; //Boostrap 5
+import 'vue-multiselect/dist/vue-multiselect.min.css'; //Multiselect
 import '../css/app.css'; //Custom CSS'
 
 import { createApp, h } from 'vue';
