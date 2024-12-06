@@ -26,3 +26,8 @@ At `App\Models\BaseModel.php` switch between use `App\Models\Model` and `use Mol
 
 ## Develop Laravel Command 
 php artisan make:controller ProductController --model=Product --resource
+
+## Build For Release
+1) Switch to release branch `git checkout release`
+2) `npm run build`
+3) .vue file will generate to public/build folder
