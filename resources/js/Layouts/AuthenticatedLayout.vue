@@ -176,7 +176,7 @@ onMounted(() => {
             <slot name="header" />
         </h2>
 
-        <FlashAlert v-if="$page.props.flash.message">
+        <FlashAlert v-if="$page.props.flash.message" @close="$page.props.flash.message = null">
             {{ $page.props.flash.message }}
         </FlashAlert>
         <slot />
